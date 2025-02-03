@@ -63,4 +63,7 @@ if __name__ == "__main__":
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
 
-        mlflow.sklearn.log_model(lr, "model")
+        input_example = train_x.iloc[:1]
+        signature = infer_signature(train_x, lr.predict(train_x))
+
+        mlflow.sklearn.log_model(lr, "model", input_example=input_example, signature=signature)
